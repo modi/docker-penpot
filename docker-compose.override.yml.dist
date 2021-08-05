@@ -1,0 +1,15 @@
+version: "3.5"
+networks:
+  infra:
+    name: ${TRAEFIK_NETWORK}
+    external: true
+services:
+  penpot-frontend:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK}"
+      - "traefik.http.routers.penpot.entrypoints=http"
+      - "traefik.http.routers.penpot.rule=Host(`penpot.localhost`)"
+      - "traefik.http.services.penpot.loadbalancer.server.port=1313"
+    networks:
+      - infra
