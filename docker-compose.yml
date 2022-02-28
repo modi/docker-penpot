@@ -1,7 +1,4 @@
 version: "3"
-networks:
-  penpot:
-    external: false
 services:
   penpot-frontend:
     image: "penpotapp/frontend:latest"
@@ -10,8 +7,6 @@ services:
       - penpot-exporter
     env_file:
       - config.env
-    networks:
-      - penpot
     volumes:
       - penpot_assets_data:/opt/data
   penpot-backend:
@@ -21,8 +16,6 @@ services:
       - penpot-redis
     env_file:
       - config.env
-    networks:
-      - penpot
     volumes:
       - penpot_assets_data:/opt/data
   penpot-exporter:
@@ -31,8 +24,6 @@ services:
       # Don't touch it; this uses internal docker network to
       # communicate with the frontend.
       - PENPOT_PUBLIC_URI=http://penpot-frontend
-    networks:
-      - penpot
   penpot-postgres:
     image: "postgres:13"
     environment:
@@ -40,15 +31,11 @@ services:
       - POSTGRES_DB=penpot
       - POSTGRES_USER=penpot
       - POSTGRES_PASSWORD=penpot
-    networks:
-      - penpot
     stop_signal: SIGINT
     volumes:
       - penpot_postgres_data:/var/lib/postgresql/data
   penpot-redis:
     image: redis:6
-    networks:
-      - penpot
 volumes:
   penpot_postgres_data:
   penpot_assets_data:
