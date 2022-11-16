@@ -8,7 +8,7 @@
 
 二）启动容器：
 
-    docker-compose up -d
+    docker compose up -d
 
 三）创建第一个用户：
 
@@ -16,9 +16,9 @@
 
     docker exec -it penpot_penpot-backend_1 ./manage.sh create-profile
 
-或者使用 `docker-compose`：
+或者使用 `docker compose`：
 
-    docker-compose exec penpot-backend ./manage.sh create-profile
+    docker compose exec penpot-backend ./manage.sh create-profile
 
 ## 参考资料
 

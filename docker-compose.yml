@@ -23,7 +23,7 @@ services:
     environment:
       - PENPOT_PUBLIC_URI=http://penpot-frontend
   penpot-postgres:
-    image: "postgres:13"
+    image: "postgres:14"
     environment:
       - POSTGRES_INITDB_ARGS=--data-checksums
       - POSTGRES_DB=penpot
@@ -33,7 +33,7 @@ services:
     volumes:
       - penpot_postgres_data:/var/lib/postgresql/data
   penpot-redis:
-    image: redis:6
+    image: redis:7
 volumes:
   penpot_postgres_data:
   penpot_assets_data:
