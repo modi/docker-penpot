@@ -8,7 +8,7 @@ services:
     env_file:
       - config.env
     volumes:
-      - penpot_assets_data:/opt/data
+      - penpot_assets:/opt/data/assets
   penpot-backend:
     image: "penpotapp/backend:latest"
     depends_on:
@@ -17,13 +17,14 @@ services:
     env_file:
       - config.env
     volumes:
-      - penpot_assets_data:/opt/data
+      - penpot_assets:/opt/data/assets
   penpot-exporter:
     image: "penpotapp/exporter:latest"
     environment:
       - PENPOT_PUBLIC_URI=http://penpot-frontend
+      - PENPOT_REDIS_URI=redis://penpot-redis/0
   penpot-postgres:
-    image: "postgres:14"
+    image: "postgres:15"
     environment:
       - POSTGRES_INITDB_ARGS=--data-checksums
       - POSTGRES_DB=penpot
@@ -31,9 +32,9 @@ services:
       - POSTGRES_PASSWORD=penpot
     stop_signal: SIGINT
     volumes:
-      - penpot_postgres_data:/var/lib/postgresql/data
+      - penpot_postgres:/var/lib/postgresql/data
   penpot-redis:
     image: redis:7
 volumes:
-  penpot_postgres_data:
-  penpot_assets_data:
+  penpot_postgres:
+  penpot_assets:
